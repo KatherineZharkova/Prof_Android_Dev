@@ -3,22 +3,15 @@
     android:id="@+id/bottom_sheet_dialog_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
+    android:padding="@dimen/margin_medium"
     android:orientation="vertical">
-
-    <Button
-        android:id="@+id/search_button_text"
-        style="@style/TextViewButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="@dimen/margin_medium"
-        android:text="@string/button_search" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium">
+        >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_input_layout"
@@ -28,7 +21,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search_edit_text"
-                style="@style/BaseEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -44,4 +36,13 @@
             android:visibility="invisible"
             tools:visibility="visible" />
     </FrameLayout>
+
+    <Button
+        android:id="@+id/search_button_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:enabled="false"
+        android:text="@string/button_search" />
+
 </LinearLayout>
