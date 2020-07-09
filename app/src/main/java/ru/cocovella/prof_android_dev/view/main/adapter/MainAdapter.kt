@@ -1,7 +1,6 @@
 package ru.cocovella.prof_android_dev.view.main.adapter
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
@@ -45,7 +44,7 @@ class MainAdapter(
                 val text = data.text
                 val imageUrl = data.meanings?.get(0)?.imageUrl
                 val translation = data.meanings?.get(0)?.translation?.text
-                Log.e("ImageURL", "$text ~ $translation ~ $imageUrl")
+//                Log.e("ImageURL", "$text ~ $translation ~ $imageUrl")
 
                 itemView.word_recycler_item.text = text
                 itemView.translation_recycler_item.text = translation

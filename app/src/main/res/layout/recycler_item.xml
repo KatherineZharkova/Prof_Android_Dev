@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_medium"
         android:orientation="vertical">
 
         <ImageView
@@ -28,7 +28,6 @@
             style="@style/HeaderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_medium"
             tools:text="Word or Phrase" />
 
         <TextView
@@ -36,14 +35,8 @@
             style="@style/BaseTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_medium"
             tools:text="Translation" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/hairline"
-            android:layout_marginTop="@dimen/margin_small"
-            android:background="@color/color_gray" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
