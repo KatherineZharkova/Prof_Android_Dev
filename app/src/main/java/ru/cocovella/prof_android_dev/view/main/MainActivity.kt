@@ -80,7 +80,7 @@ class MainActivity : BaseActivity<DataModel>() {
 
     private fun showErrorScreen(error: String?) {
         showViewError()
-        error_textview.text = error ?: getString(R.string.undefined_error)
+        error_text.text = error ?: getString(R.string.undefined_error)
         reload_button.setOnClickListener {
             presenter.getData("hi", true)
         }

@@ -58,8 +58,8 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchEditText = search_edit_text
-        clearTextImageView = clear_text_imageview
-        searchButton = search_button_textview
+        clearTextImageView = clear_text_image
+        searchButton = search_button_text
 
         searchButton.setOnClickListener(onSearchButtonClickListener)
         searchEditText.addTextChangedListener(textWatcher)

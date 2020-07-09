@@ -1,12 +1,16 @@
 package ru.cocovella.prof_android_dev.view.main.adapter
 
+
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main_recyclerview_item.view.*
+import kotlinx.android.synthetic.main.recycler_item.view.*
 import ru.cocovella.prof_android_dev.R
 import ru.cocovella.prof_android_dev.model.data.SearchResult
+
 
 class MainAdapter(
     private var onListItemClickListener: OnListItemClickListener,
@@ -22,7 +26,7 @@ class MainAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemViewHolder {
         return RecyclerItemViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_main_recyclerview_item, parent, false) as View
+                .inflate(R.layout.recycler_item, parent, false) as View
         )
     }
 
@@ -38,10 +42,22 @@ class MainAdapter(
 
         fun bind(data: SearchResult) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.header_textview_recycler_item.text = data.text
-                itemView.description_textview_recycler_item.text =
-                    data.meanings?.get(0)?.translation?.text
+                val text = data.text
+                val imageUrl = data.meanings?.get(0)?.imageUrl
+                val translation = data.meanings?.get(0)?.translation?.text
+                Log.e("ImageURL", "$text ~ $translation ~ $imageUrl")
 
+                itemView.word_recycler_item.text = text
+                itemView.translation_recycler_item.text = translation
+                if(imageUrl != null) {
+                    itemView.word_image.visibility = VISIBLE
+//                    Picasso.with(itemView.context)
+//                        .load(imageUrl)
+//                        .centerCrop()
+//                        .placeholder(R.drawable.ic_delete_text)
+//                        .error(R.drawable.ic_launcher_background)
+//                        .into(itemView.word_image)
+                }
                 itemView.setOnClickListener { openInNewWindow(data) }
             }
         }
