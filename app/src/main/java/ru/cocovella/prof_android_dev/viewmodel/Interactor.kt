@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.presenter
+package ru.cocovella.prof_android_dev.viewmodel
 
 import io.reactivex.Observable
 

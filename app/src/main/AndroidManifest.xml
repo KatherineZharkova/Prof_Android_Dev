@@ -13,12 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
-        <activity android:name=".view.main.MainActivity" android:screenOrientation="nosensor">
+        tools:ignore="AllowBackup"
+        android:name=".application.TranslatorApp">
+    <activity android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

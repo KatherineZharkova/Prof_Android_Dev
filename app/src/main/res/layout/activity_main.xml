@@ -22,6 +22,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_medium"
+            android:backgroundTint="@color/colorAccent"
             android:src="@drawable/ic_search" />
     </FrameLayout>
 
@@ -54,10 +55,10 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/error_textview"
+            android:id="@+id/error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/error_textview_stub" />
+            android:text="@string/error_stub" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reload_button"

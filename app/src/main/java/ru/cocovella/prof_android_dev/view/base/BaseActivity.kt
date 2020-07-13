@@ -1,28 +1,52 @@
 package ru.cocovella.prof_android_dev.view.base
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.cocovella.prof_android_dev.model.data.DataModel
-import ru.cocovella.prof_android_dev.presenter.Presenter
+import ru.cocovella.prof_android_dev.R
+import ru.cocovella.prof_android_dev.model.data.AppState
+import ru.cocovella.prof_android_dev.utils.network.isOnline
+import ru.cocovella.prof_android_dev.utils.ui.AlertDialogFragment
+import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
+import ru.cocovella.prof_android_dev.viewmodel.Interactor
 
-abstract class BaseActivity<T : DataModel> : AppCompatActivity(), View {
+abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity() {
 
-    protected lateinit var presenter: Presenter<T, View>
-    protected abstract fun createPresenter(): Presenter<T, View>
-    abstract override fun renderData(dataModel: DataModel)
+    abstract val model: BaseViewModel<T>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter = createPresenter()
+    protected var isNetworkAvailable: Boolean = false
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        isNetworkAvailable = isOnline(applicationContext)
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.attachView(this)
+    override fun onResume() {
+        super.onResume()
+        isNetworkAvailable = isOnline(applicationContext)
+        if (!isNetworkAvailable && isDialogNull()) {
+            showNoInternetConnectionDialog()
+        }
     }
 
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView(this)
+    protected fun showNoInternetConnectionDialog() {
+        showAlertDialog(
+            getString(R.string.dialog_title_device_is_offline),
+            getString(R.string.dialog_message_device_is_offline)
+        )
+    }
+
+    protected fun showAlertDialog(title: String?, message: String?) {
+        AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
+    }
+
+    private fun isDialogNull(): Boolean {
+        return supportFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) == null
+    }
+
+    abstract fun renderData(dataModel: T)
+
+    companion object {
+        private const val DIALOG_FRAGMENT_TAG = "74a54328"
     }
 }

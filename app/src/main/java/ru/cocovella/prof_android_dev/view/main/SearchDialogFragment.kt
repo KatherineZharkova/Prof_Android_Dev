@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.android.synthetic.main.search_dialog_fragment.*
 import ru.cocovella.prof_android_dev.R
 
 class SearchDialogFragment : BottomSheetDialogFragment() {
@@ -51,16 +50,10 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.search_dialog_fragment, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.search_dialog_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchEditText = search_edit_text
-        clearTextImageView = clear_text_imageview
-        searchButton = search_button_textview
-
         searchButton.setOnClickListener(onSearchButtonClickListener)
         searchEditText.addTextChangedListener(textWatcher)
         addOnClearClickListener()
@@ -79,13 +72,10 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     interface OnSearchClickListener {
-
         fun onClick(searchWord: String)
     }
 
     companion object {
-        fun newInstance(): SearchDialogFragment {
-            return SearchDialogFragment()
-        }
+        fun newInstance(): SearchDialogFragment = SearchDialogFragment()
     }
 }

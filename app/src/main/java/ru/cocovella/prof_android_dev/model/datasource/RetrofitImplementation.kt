@@ -7,15 +7,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.cocovella.prof_android_dev.model.data.SearchResult
+import ru.cocovella.prof_android_dev.model.data.DataModel
 
-class RetrofitImplementation : DataSource<List<SearchResult>> {
+class RetrofitImplementation : DataSource<List<DataModel>> {
 
-    override fun getData(word: String): Observable<List<SearchResult>> =
-        getService(BaseInterceptor.interceptor).search(word)
+    override fun getData(word: String): Observable<List<DataModel>> = getService(BaseInterceptor.interceptor).search(word)
 
-    private fun getService(interceptor: Interceptor): ApiService =
-        createRetrofit(interceptor).create(ApiService::class.java)
+    private fun getService(interceptor: Interceptor): ApiService = createRetrofit(interceptor).create(ApiService::class.java)
 
     private fun createRetrofit(interceptor: Interceptor): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL_LOCATIONS)
