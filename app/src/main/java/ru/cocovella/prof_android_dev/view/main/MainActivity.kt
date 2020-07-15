@@ -5,24 +5,19 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.prof_android_dev.R
 import ru.cocovella.prof_android_dev.model.data.AppState
 import ru.cocovella.prof_android_dev.model.data.DataModel
 import ru.cocovella.prof_android_dev.utils.network.isOnline
 import ru.cocovella.prof_android_dev.view.base.BaseActivity
 import ru.cocovella.prof_android_dev.view.main.adapter.MainAdapter
-import javax.inject.Inject
 
 class MainActivity : BaseActivity<AppState, MainInteractor>()  {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    override lateinit var model: MainViewModel
+    override val model: MainViewModel by viewModel()
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
     private val fabClickListener: android.view.View.OnClickListener =
         android.view.View.OnClickListener {
@@ -49,24 +44,17 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        model = viewModelFactory.create(MainViewModel::class.java)
-        model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
-
-        search_fab.setOnClickListener(fabClickListener)
-        main_activity_recyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        main_activity_recyclerview.adapter = adapter
+        initViewModel()
+        initViews()
     }
 
-    override fun renderData(dataModel: AppState) {
-        when (dataModel) {
+    override fun renderData(appState: AppState) {
+        when (appState) {
             is AppState.Success -> {
                 showViewWorking()
-                val data = dataModel.data
+                val data = appState.data
                 if (data.isNullOrEmpty()) {
                     showAlertDialog(
                         getString(R.string.dialog_title_sorry),
@@ -78,10 +66,10 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
             }
             is AppState.Loading -> {
                 showViewLoading()
-                if (dataModel.progress != null) {
+                if (appState.progress != null) {
                     progress_bar_horizontal.visibility = VISIBLE
                     progress_bar_round.visibility = GONE
-                    progress_bar_horizontal.progress = dataModel.progress
+                    progress_bar_horizontal.progress = appState.progress
                 } else {
                     progress_bar_horizontal.visibility = GONE
                     progress_bar_round.visibility = VISIBLE
@@ -89,9 +77,22 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
             }
             is AppState.Error -> {
                 showViewWorking()
-                showAlertDialog(getString(R.string.error_stub), dataModel.error.message)
+                showAlertDialog(getString(R.string.error_stub), appState.error.message)
             }
         }
+    }
+
+    private fun initViewModel() {
+        if (main_activity_recyclerview.adapter != null) {
+            throw IllegalStateException("The ViewModel should be initialized first.")
+        }
+        model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
+    }
+
+    private fun initViews() {
+        search_fab.setOnClickListener(fabClickListener)
+        main_activity_recyclerview.layoutManager = LinearLayoutManager(applicationContext)
+        main_activity_recyclerview.adapter = adapter
     }
 
     private fun showViewWorking() {

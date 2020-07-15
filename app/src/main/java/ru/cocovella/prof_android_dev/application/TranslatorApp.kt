@@ -1,26 +1,16 @@
 package ru.cocovella.prof_android_dev.application
 
-import android.app.Activity
 import android.app.Application
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import ru.cocovella.prof_android_dev.di.DaggerAppComponent
-import javax.inject.Inject
+import org.koin.core.context.startKoin
+import ru.cocovella.prof_android_dev.di.application
+import ru.cocovella.prof_android_dev.di.mainScreen
 
-class TranslatorApp : Application(), HasActivityInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-
-    override fun activityInjector(): DispatchingAndroidInjector<Activity>? {
-        return dispatchingAndroidInjector
-    }
+class TranslatorApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this)
+        startKoin {
+            modules(listOf(application, mainScreen))
+        }
     }
 }

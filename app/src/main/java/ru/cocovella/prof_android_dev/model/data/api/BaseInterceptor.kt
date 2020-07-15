@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.datasource
+package ru.cocovella.prof_android_dev.model.data.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
