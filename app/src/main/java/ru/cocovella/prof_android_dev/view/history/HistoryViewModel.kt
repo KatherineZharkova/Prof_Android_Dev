@@ -1,14 +1,13 @@
-package ru.cocovella.prof_android_dev.view.main
+package ru.cocovella.prof_android_dev.view.history
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.utils.parseOnlineSearchResults
+import ru.cocovella.prof_android_dev.utils.parseLocalSearchResults
 import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
 
-class MainViewModel (private val interactor: MainInteractor) : BaseViewModel<AppState>() {
+class HistoryViewModel(private val interactor: HistoryInteractor) :
+    BaseViewModel<AppState>() {
 
     private val liveDataForViewToObserve: LiveData<AppState> = mutableLiveData
 
@@ -20,8 +19,8 @@ class MainViewModel (private val interactor: MainInteractor) : BaseViewModel<App
         viewModelCoroutineScope.launch { startInteractor(word, isOnline) }
     }
 
-    private suspend fun startInteractor(word: String, isOnline: Boolean) = withContext(Dispatchers.IO) {
-        mutableLiveData.postValue(parseOnlineSearchResults(interactor.getData(word, isOnline)))
+    private suspend fun startInteractor(word: String, isOnline: Boolean) {
+        mutableLiveData.postValue(parseLocalSearchResults(interactor.getData(word, isOnline)))
     }
 
     override fun handleError(error: Throwable) {

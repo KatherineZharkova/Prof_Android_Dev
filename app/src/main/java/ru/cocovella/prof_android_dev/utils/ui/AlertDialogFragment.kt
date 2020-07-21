@@ -19,9 +19,8 @@ class AlertDialogFragment : AppCompatDialogFragment() {
     }
 
     companion object {
-
-        private const val TITLE_EXTRA = "89cbce59"
-        private const val MESSAGE_EXTRA = "0dd00b66"
+        private const val TITLE_EXTRA = "alert_dialog_title"
+        private const val MESSAGE_EXTRA = "alert_dialog_message"
 
         fun newInstance(title: String?, message: String?): AlertDialogFragment {
             val dialogFragment = AlertDialogFragment()

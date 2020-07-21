@@ -12,12 +12,13 @@ import ru.cocovella.prof_android_dev.model.data.api.BaseInterceptor
 
 class RetrofitImplementation : DataSource<List<DataModel>> {
 
-    override suspend fun getData(word: String): List<DataModel> = getService(BaseInterceptor.interceptor).searchAsync(word).await()
+    override suspend fun getData(word: String): List<DataModel> =
+        getService(BaseInterceptor.interceptor).searchAsync(word).await()
 
-    private fun getService(interceptor: Interceptor): ApiService = createRetrofit(interceptor).create(
-        ApiService::class.java)
+    private fun getService(interceptor: Interceptor): ApiService =
+        createRetrofit(interceptor).create(ApiService::class.java)
 
-    private fun createRetrofit(interceptor: Interceptor): Retrofit = Retrofit.Builder()
+    private fun createRetrofit(interceptor: Interceptor) = Retrofit.Builder()
         .baseUrl(BASE_URL_LOCATIONS)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
