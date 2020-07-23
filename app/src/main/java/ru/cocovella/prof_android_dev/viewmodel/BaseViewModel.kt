@@ -3,7 +3,7 @@ package ru.cocovella.prof_android_dev.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import ru.cocovella.prof_android_dev.model.data.AppState
+import ru.cocovella.repo.model.data.AppState
 
 abstract class BaseViewModel<T : AppState>(
     protected open val mutableLiveData: MutableLiveData<T> = MutableLiveData()

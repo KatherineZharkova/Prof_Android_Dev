@@ -1,9 +1,9 @@
 package ru.cocovella.prof_android_dev.utils
 
-import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.model.data.DataModel
-import ru.cocovella.prof_android_dev.model.data.Meanings
-import ru.cocovella.prof_android_dev.room.HistoryEntity
+import ru.cocovella.repo.model.data.AppState
+import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.Meanings
+import ru.cocovella.repo.room.HistoryEntity
 
 fun parseOnlineSearchResults(state: AppState): AppState = AppState.Success(mapResult(state, true))
 
@@ -37,8 +37,8 @@ private fun getSuccessResultData(data: AppState.Success, isOnline: Boolean, newD
 private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
+        for (meaning in dataModel.meanings!!) {
+            if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
         }
@@ -65,7 +65,10 @@ fun convertDataModelSuccessToEntity(appState: AppState): HistoryEntity? {
             if (searchResult.isNullOrEmpty() || searchResult[0].text.isNullOrEmpty()) {
                 null
             } else {
-                HistoryEntity(searchResult[0].text!!, null)
+                HistoryEntity(
+                    searchResult[0].text!!,
+                    null
+                )
             }
         }
         else -> null

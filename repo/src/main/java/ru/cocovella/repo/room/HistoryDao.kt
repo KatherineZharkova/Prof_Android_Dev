@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.room
+package ru.cocovella.repo.room
 
 import androidx.room.*
 

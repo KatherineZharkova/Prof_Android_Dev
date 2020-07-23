@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.data.api
+package ru.cocovella.repo.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -19,8 +19,10 @@ class BaseInterceptor private constructor() : Interceptor {
         var statusCode =
             ServerResponseStatusCode.UNDEFINED_ERROR
         when (responseCode / 100) {
-            1 -> statusCode = ServerResponseStatusCode.INFO
-            2 -> statusCode = ServerResponseStatusCode.SUCCESS
+            1 -> statusCode =
+                ServerResponseStatusCode.INFO
+            2 -> statusCode =
+                ServerResponseStatusCode.SUCCESS
             3 -> statusCode =
                 ServerResponseStatusCode.REDIRECTION
             4 -> statusCode =

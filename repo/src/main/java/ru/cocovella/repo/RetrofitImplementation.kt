@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.datasource
+package ru.cocovella.repo
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -6,9 +6,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.cocovella.prof_android_dev.model.data.DataModel
-import ru.cocovella.prof_android_dev.model.data.api.ApiService
-import ru.cocovella.prof_android_dev.model.data.api.BaseInterceptor
+import ru.cocovella.repo.api.ApiService
+import ru.cocovella.repo.api.BaseInterceptor
+import ru.cocovella.repo.model.data.DataModel
 
 class RetrofitImplementation : DataSource<List<DataModel>> {
 

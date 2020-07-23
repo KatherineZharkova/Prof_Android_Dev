@@ -6,9 +6,9 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_history.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.prof_android_dev.R
-import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.model.data.DataModel
 import ru.cocovella.prof_android_dev.view.base.BaseActivity
+import ru.cocovella.repo.model.data.AppState
+import ru.cocovella.repo.model.data.DataModel
 
 class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
 

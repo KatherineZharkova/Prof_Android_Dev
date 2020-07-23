@@ -2,9 +2,9 @@ package ru.cocovella.prof_android_dev.view.history
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.launch
-import ru.cocovella.prof_android_dev.model.data.AppState
 import ru.cocovella.prof_android_dev.utils.parseLocalSearchResults
 import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
+import ru.cocovella.repo.model.data.AppState
 
 class HistoryViewModel(private val interactor: HistoryInteractor) :
     BaseViewModel<AppState>() {

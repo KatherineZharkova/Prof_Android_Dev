@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.datasource
+package ru.cocovella.repo
 
 interface DataSource<T> {
     suspend fun getData(word: String): T

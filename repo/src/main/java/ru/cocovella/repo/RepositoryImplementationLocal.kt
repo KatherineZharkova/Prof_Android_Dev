@@ -1,8 +1,7 @@
-package ru.cocovella.prof_android_dev.model.repository
+package ru.cocovella.repo
 
-import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.model.data.DataModel
-import ru.cocovella.prof_android_dev.model.datasource.DataSourceLocal
+import ru.cocovella.repo.model.data.AppState
+import ru.cocovella.repo.model.data.DataModel
 
 class RepositoryImplementationLocal(private val dataSource: DataSourceLocal<List<DataModel>>) :
     RepositoryLocal<List<DataModel>> {

@@ -9,14 +9,14 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.prof_android_dev.R
-import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.model.data.DataModel
 import ru.cocovella.prof_android_dev.utils.convertMeaningsToString
 import ru.cocovella.prof_android_dev.utils.network.isOnline
 import ru.cocovella.prof_android_dev.view.base.BaseActivity
 import ru.cocovella.prof_android_dev.view.description.DescriptionActivity
 import ru.cocovella.prof_android_dev.view.history.HistoryActivity
 import ru.cocovella.prof_android_dev.view.main.adapter.MainAdapter
+import ru.cocovella.repo.model.data.AppState
+import ru.cocovella.repo.model.data.DataModel
 
 private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "74m54328"
 
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
                         this@MainActivity,
                         data.text!!,
                         convertMeaningsToString(data.meanings!!),
-                        data.meanings[0].imageUrl
+                        data.meanings!![0].imageUrl
                     )
                 )
 

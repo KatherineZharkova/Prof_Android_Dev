@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.data
+package ru.cocovella.repo.model.data
 
 sealed class AppState {
     data class Success(val data: List<DataModel>?) : AppState()

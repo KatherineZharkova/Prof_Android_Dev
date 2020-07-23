@@ -6,12 +6,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.loading_layout.*
 import ru.cocovella.prof_android_dev.R
-import ru.cocovella.prof_android_dev.model.data.AppState
-import ru.cocovella.prof_android_dev.model.data.DataModel
 import ru.cocovella.prof_android_dev.utils.network.isOnline
 import ru.cocovella.prof_android_dev.utils.ui.AlertDialogFragment
 import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
 import ru.cocovella.prof_android_dev.viewmodel.Interactor
+import ru.cocovella.repo.model.data.AppState
+import ru.cocovella.repo.model.data.DataModel
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328"
 
@@ -53,7 +53,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
                 if (appState.progress != null) {
                     progress_bar_horizontal.visibility = View.VISIBLE
                     progress_bar_round.visibility = View.GONE
-                    progress_bar_horizontal.progress = appState.progress
+                    progress_bar_horizontal.progress = appState.progress!!
                 } else {
                     progress_bar_horizontal.visibility = View.GONE
                     progress_bar_round.visibility = View.VISIBLE

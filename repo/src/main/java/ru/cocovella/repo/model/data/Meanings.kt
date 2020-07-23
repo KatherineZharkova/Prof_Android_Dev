@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.model.data
+package ru.cocovella.repo.model.data
 
 import com.google.gson.annotations.SerializedName
 

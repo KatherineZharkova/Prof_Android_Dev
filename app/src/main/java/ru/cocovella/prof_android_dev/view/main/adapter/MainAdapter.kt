@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main_recyclerview_item.view.*
 import ru.cocovella.prof_android_dev.R
-import ru.cocovella.prof_android_dev.model.data.DataModel
 import ru.cocovella.prof_android_dev.utils.convertMeaningsToString
+import ru.cocovella.repo.model.data.DataModel
 
 class MainAdapter(private var onListItemClickListener: OnListItemClickListener) :
     RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
