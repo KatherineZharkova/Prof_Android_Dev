@@ -1,4 +1,4 @@
-package ru.cocovella.prof_android_dev.view.history
+package ru.cocovella.history_screen.history
 
 import ru.cocovella.prof_android_dev.viewmodel.Interactor
 import ru.cocovella.repo.Repository

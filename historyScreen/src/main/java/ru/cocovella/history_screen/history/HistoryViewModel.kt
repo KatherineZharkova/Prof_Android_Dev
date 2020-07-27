@@ -1,8 +1,8 @@
-package ru.cocovella.prof_android_dev.view.history
+package ru.cocovella.history_screen.history
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.launch
-import ru.cocovella.prof_android_dev.utils.parseLocalSearchResults
+import ru.cocovella.history_screen.parseLocalSearchResults
 import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
 import ru.cocovella.repo.model.data.AppState
 

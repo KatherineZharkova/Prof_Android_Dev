@@ -1,11 +1,11 @@
-package ru.cocovella.prof_android_dev.view.history
+package ru.cocovella.history_screen.history
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_history_recyclerview_item.view.*
-import ru.cocovella.prof_android_dev.R
+import ru.cocovella.historyscreen.R
 import ru.cocovella.repo.model.data.DataModel
 
 class HistoryAdapter(private var onListItemClickListener: OnListItemClickListener) : RecyclerView.Adapter<HistoryAdapter.RecyclerItemViewHolder>() {

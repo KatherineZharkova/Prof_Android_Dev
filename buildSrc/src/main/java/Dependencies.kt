@@ -16,7 +16,7 @@ object Releases {
 object Modules {
     const val app = ":app"
     const val repo = ":repo"
-    const val utils = ":utils"
+    const val history = ":historyScreen"
 }
 
 object Tools {
@@ -63,6 +63,10 @@ object Room {
     const val room_ktx = "androidx.room:room-ktx:${Versions.roomKtx}"
 }
 
+object GooglePlay {
+    const val googlePlayCore = "com.google.android.play:core:${Versions.googlePlayCore}"
+}
+
 object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
     const val runner = "androidx.test:runner:${Versions.runner}"
@@ -104,6 +108,9 @@ object Versions {
     const val roomKtx = "2.3.0-alpha01"
     const val runtime = "2.3.0-alpha01"
     const val roomCompiler = "2.3.0-alpha01"
+
+    //Google Play
+    const val googlePlayCore = "1.6.3"
 
     //Test
     const val jUnit = "4.13"

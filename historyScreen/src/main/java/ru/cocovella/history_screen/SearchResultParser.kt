@@ -1,10 +1,10 @@
-package ru.cocovella.prof_android_dev.utils
+package ru.cocovella.history_screen
 
 import ru.cocovella.repo.model.data.AppState
 import ru.cocovella.repo.model.data.DataModel
 import ru.cocovella.repo.model.data.Meanings
 
-fun parseOnlineSearchResults(state: AppState): AppState = AppState.Success(mapResult(state, true))
+fun parseLocalSearchResults(data: AppState): AppState = AppState.Success(mapResult(data, false))
 
 private fun mapResult(data: AppState, isOnline: Boolean): List<DataModel> {
     val newSearchResults = arrayListOf<DataModel>()
@@ -43,16 +43,4 @@ private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<Dat
             newDataModels.add(DataModel(dataModel.text, newMeanings))
         }
     }
-}
-
-fun convertMeaningsToString(meanings: List<Meanings>): String {
-    var meaningsSeparatedByComma = String()
-    for ((index, meaning) in meanings.withIndex()) {
-        meaningsSeparatedByComma += if (index + 1 != meanings.size) {
-            String.format("%s%s", meaning.translation?.translation, ", ")
-        } else {
-            meaning.translation?.translation
-        }
-    }
-    return meaningsSeparatedByComma
 }

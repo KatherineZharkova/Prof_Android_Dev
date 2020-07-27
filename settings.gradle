@@ -1,3 +1,4 @@
+include ':historyScreen'
 rootProject.name='Prof_Android_Dev'
 include Modules.app
 include Modules.repo
