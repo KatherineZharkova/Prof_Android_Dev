@@ -18,7 +18,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
 import ru.cocovella.prof_android_dev.R
 import ru.cocovella.prof_android_dev.di.loadModules
 import ru.cocovella.prof_android_dev.utils.convertMeaningsToString
@@ -36,7 +36,7 @@ private const val REQUEST_CODE = 42
 
 class MainActivity : BaseActivity<AppState, MainInteractor>()  {
 
-    override val model: MainViewModel by viewModel()
+    override lateinit var model: MainViewModel
     private lateinit var splitInstallManager: SplitInstallManager
     private lateinit var appUpdateManager: AppUpdateManager
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
@@ -51,30 +51,22 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
             override fun onItemClick(data: DataModel) {
                 startActivity(
                     DescriptionActivity.getIntent(
-                        this@MainActivity,
-                        data.text!!,
+                        this@MainActivity, data.text!!,
                         convertMeaningsToString(data.meanings!!),
-                        data.meanings!![0].imageUrl
-                    )
+                        data.meanings!![0].imageUrl)
                 )
-
             }
         }
     private val onSearchClickListener = object : SearchDialogFragment.OnSearchClickListener {
             override fun onClick(searchWord: String) {
                 isNetworkAvailable = isOnline(applicationContext)
-                if (isNetworkAvailable) {
-                    model.getData(searchWord, isNetworkAvailable)
-                } else {
-                    showNoInternetConnectionDialog()
-                }
+                if (isNetworkAvailable) model.getData(searchWord, isNetworkAvailable)
+                else showNoInternetConnectionDialog()
             }
         }
-    private val stateUpdatedListener: InstallStateUpdatedListener = InstallStateUpdatedListener { state ->
-            state?.let {
-                if (it.installStatus() == InstallStatus.DOWNLOADED) {
-                    popupSnackBarForCompleteUpdate()
-                }
+    private val stateUpdatedListener: InstallStateUpdatedListener = InstallStateUpdatedListener {
+            it?.let {
+                if (it.installStatus() == InstallStatus.DOWNLOADED) popupSnackBarForCompleteUpdate()
             }
         }
 
@@ -103,6 +95,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
     private fun initViewModel() {
         check (main_activity_recyclerview.adapter == null) { "The ViewModel should be initialized first." }
         loadModules()
+        val viewModel: MainViewModel by currentScope.inject()
+        model = viewModel
         model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
     }
 
@@ -185,7 +179,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
             "An update has just been downloaded.",
             Snackbar.LENGTH_INDEFINITE
         ).apply {
-            setAction("RESTART") { appUpdateManager.completeUpdate() }
+            setAction("INSTALL") { appUpdateManager.completeUpdate() }
             show()
         }
     }

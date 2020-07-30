@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="header">Header</string>
+    <string name="title_history_screen">historyScreen</string>
+</resources>

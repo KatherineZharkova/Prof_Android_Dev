@@ -1,8 +1,11 @@
 package ru.cocovella.prof_android_dev.di
 
 import androidx.room.Room
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import ru.cocovella.prof_android_dev.view.main.MainActivity
 import ru.cocovella.prof_android_dev.view.main.MainInteractor
 import ru.cocovella.prof_android_dev.view.main.MainViewModel
 import ru.cocovella.repo.*
@@ -21,6 +24,9 @@ val application = module {
 }
 
 val mainScreen = module {
-    factory { MainViewModel(get()) }
-    factory { MainInteractor(get(), get()) }
+    scope(named<MainActivity>()) {
+        viewModel { MainViewModel(get()) }
+        scoped { MainInteractor(get(), get()) }
+    }
+
 }

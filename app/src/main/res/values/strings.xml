@@ -2,8 +2,7 @@
     <string name="app_name">Translator MVVM</string>
     <string name="error_stub">Error</string>
     <string name="reload_button">Reload</string>
-    <string name="undefined_error">Undefined error</string>
-    <string name="empty_server_response_on_success">No definitions found</string>
+    <string name="empty_server_response">No definitions found</string>
     <string name="button_search">Search</string>
     <string name="search_hint">New word</string>
     <string name="delete_description">X</string>
@@ -12,7 +11,6 @@
     <string name="dialog_title_stub">Undefined error</string>
     <string name="dialog_title_device_is_offline">No internet connection</string>
     <string name="dialog_message_device_is_offline">You can not use app without internet connection. Please, check internet connection and try again.</string>
-    <string name="dialog_title_sorry">Sorry</string>
+    <string name="dialog_title">Sorry</string>
     <string name="menu_title_history">History</string>
-    <string name="title_historyscreen">historyScreen</string>
 </resources>

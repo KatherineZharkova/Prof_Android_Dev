@@ -35,7 +35,7 @@ private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<Dat
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
         for (meaning in dataModel.meanings!!) {
-            if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
+            if (meaning.translation != null && !meaning.translation!!.text.isNullOrBlank()) {
                 newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
             }
         }

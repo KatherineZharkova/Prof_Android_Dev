@@ -1,10 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="ru.cocovella.historyscreen">
+    package="ru.cocovella.history_screen">
 
     <dist:module
         dist:instant="false"
-        dist:title="@string/title_historyscreen">
+        dist:title="@string/title_history_screen">
         <dist:delivery>
             <dist:on-demand />
         </dist:delivery>
@@ -13,7 +13,7 @@
 
     <application>
         <activity
-            android:name="ru.cocovella.history_screen.history.HistoryActivity"
+            android:name=".history.HistoryActivity"
             android:screenOrientation="portrait" />
     </application>
 

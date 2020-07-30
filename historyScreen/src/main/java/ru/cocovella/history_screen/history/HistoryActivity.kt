@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_history.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.scope.currentScope
+import ru.cocovella.history_screen.R
 import ru.cocovella.history_screen.loadModules
-import ru.cocovella.historyscreen.R
 import ru.cocovella.prof_android_dev.view.base.BaseActivity
 import ru.cocovella.repo.model.data.AppState
 import ru.cocovella.repo.model.data.DataModel
 
 class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
 
-    override val model: HistoryViewModel by viewModel()
+    override lateinit var model: HistoryViewModel
     private val adapter: HistoryAdapter by lazy { HistoryAdapter(onListItemClickListener) }
     private val onListItemClickListener = object : HistoryAdapter.OnListItemClickListener {
         override fun onItemClick(data: DataModel) {
@@ -41,6 +41,8 @@ class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
     private fun iniViewModel() {
         check (history_activity_recyclerview.adapter == null) { "The ViewModel should be initialised first" }
         loadModules()
+        val viewModel: HistoryViewModel by currentScope.inject()
+        model = viewModel
         model.subscribe().observe(this@HistoryActivity, Observer<AppState> { renderData(it) })
     }
 

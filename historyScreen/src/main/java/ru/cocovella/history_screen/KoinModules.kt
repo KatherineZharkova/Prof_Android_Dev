@@ -1,7 +1,10 @@
 package ru.cocovella.history_screen
 
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import ru.cocovella.history_screen.history.HistoryActivity
 import ru.cocovella.history_screen.history.HistoryInteractor
 import ru.cocovella.history_screen.history.HistoryViewModel
 
@@ -12,6 +15,8 @@ private val loadFeature by lazy {
 }
 
 val historyScreen = module {
-    factory { HistoryViewModel(get()) }
-    factory { HistoryInteractor(get(), get()) }
+    scope(named<HistoryActivity>()) {
+        scoped { HistoryInteractor(get(), get()) }
+        viewModel { HistoryViewModel(get()) }
+    }
 }
