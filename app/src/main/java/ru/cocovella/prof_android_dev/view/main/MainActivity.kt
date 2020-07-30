@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -17,17 +19,17 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.scope.currentScope
 import ru.cocovella.prof_android_dev.R
 import ru.cocovella.prof_android_dev.di.loadModules
 import ru.cocovella.prof_android_dev.utils.convertMeaningsToString
 import ru.cocovella.prof_android_dev.utils.network.isOnline
+import ru.cocovella.prof_android_dev.utils.ui.viewById
 import ru.cocovella.prof_android_dev.view.base.BaseActivity
 import ru.cocovella.prof_android_dev.view.description.DescriptionActivity
 import ru.cocovella.prof_android_dev.view.main.adapter.MainAdapter
 import ru.cocovella.repo.model.data.AppState
-import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.userdata.DataModel
 
 private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "74m54328"
 private const val HISTORY_ACTIVITY_PATH = "ru.cocovella.history_screen.history.HistoryActivity"
@@ -36,10 +38,14 @@ private const val REQUEST_CODE = 42
 
 class MainActivity : BaseActivity<AppState, MainInteractor>()  {
 
+    override val layoutRes = R.layout.activity_main
     override lateinit var model: MainViewModel
     private lateinit var splitInstallManager: SplitInstallManager
     private lateinit var appUpdateManager: AppUpdateManager
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
+
+    private val mainRecyclerView by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
 
     private val fabClickListener = View.OnClickListener {
         SearchDialogFragment.newInstance().apply {
@@ -51,9 +57,9 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
             override fun onItemClick(data: DataModel) {
                 startActivity(
                     DescriptionActivity.getIntent(
-                        this@MainActivity, data.text!!,
-                        convertMeaningsToString(data.meanings!!),
-                        data.meanings!![0].imageUrl)
+                        this@MainActivity, data.text,
+                        convertMeaningsToString(data.meanings),
+                        data.meanings[0].imageUrl)
                 )
             }
         }
@@ -72,7 +78,6 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         initViewModel()
         initViews()
         checkForUpdates()
@@ -93,7 +98,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
     }
 
     private fun initViewModel() {
-        check (main_activity_recyclerview.adapter == null) { "The ViewModel should be initialized first." }
+        check (mainRecyclerView.adapter == null) { "The ViewModel should be initialized first." }
         loadModules()
         val viewModel: MainViewModel by currentScope.inject()
         model = viewModel
@@ -101,8 +106,8 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
     }
 
     private fun initViews() {
-        search_fab.setOnClickListener(fabClickListener)
-        main_activity_recyclerview.adapter = adapter
+        searchFAB.setOnClickListener(fabClickListener)
+        mainRecyclerView.adapter = adapter
     }
 
     override fun setDataToAdapter(data: List<DataModel>) {

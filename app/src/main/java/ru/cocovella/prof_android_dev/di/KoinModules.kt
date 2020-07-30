@@ -9,7 +9,7 @@ import ru.cocovella.prof_android_dev.view.main.MainActivity
 import ru.cocovella.prof_android_dev.view.main.MainInteractor
 import ru.cocovella.prof_android_dev.view.main.MainViewModel
 import ru.cocovella.repo.*
-import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.dto.SearchResultDto
 import ru.cocovella.repo.room.HistoryDataBase
 
 fun loadModules() = loadModules
@@ -19,8 +19,8 @@ private val loadModules by lazy { loadKoinModules(listOf(application, mainScreen
 val application = module {
     single { Room.databaseBuilder(get(), HistoryDataBase::class.java, "HistoryDBase").build() }
     single { get<HistoryDataBase>().historyDao() }
-    single<Repository<List<DataModel>>> { RepositoryImplementation(RetrofitImplementation()) }
-    single<RepositoryLocal<List<DataModel>>> { RepositoryImplementationLocal(RoomDataBaseImplementation(get())) }
+    single<Repository<List<SearchResultDto>>> { RepositoryImplementation(RetrofitImplementation()) }
+    single<RepositoryLocal<List<SearchResultDto>>> { RepositoryImplementationLocal(RoomDataBaseImplementation(get())) }
 }
 
 val mainScreen = module {

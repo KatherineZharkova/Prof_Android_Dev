@@ -1,8 +1,8 @@
 package ru.cocovella.history_screen
 
 import ru.cocovella.repo.model.data.AppState
-import ru.cocovella.repo.model.data.DataModel
-import ru.cocovella.repo.model.data.Meanings
+import ru.cocovella.repo.model.data.userdata.DataModel
+import ru.cocovella.repo.model.data.userdata.Meaning
 
 fun parseLocalSearchResults(data: AppState): AppState = AppState.Success(mapResult(data, false))
 
@@ -25,22 +25,37 @@ private fun getSuccessResultData(data: AppState.Success, isOnline: Boolean, newD
             }
         } else {
             for (searchResult in dataModels) {
-                newDataModels.add(DataModel(searchResult.text, arrayListOf()))
+                newDataModels.add(
+                    DataModel(
+                        searchResult.text,
+                        arrayListOf()
+                    )
+                )
             }
         }
     }
 }
 
 private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
-    if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
-        val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings!!) {
-            if (meaning.translation != null && !meaning.translation!!.text.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+    if (dataModel.text.isNotBlank() && dataModel.meanings.isNotEmpty()) {
+        val newMeanings = arrayListOf<Meaning>()
+        for (meaning in dataModel.meanings) {
+            if (meaning.translatedMeaning.translatedMeaning.isBlank()) {
+                newMeanings.add(
+                    Meaning(
+                        meaning.translatedMeaning,
+                        meaning.imageUrl
+                    )
+                )
             }
         }
         if (newMeanings.isNotEmpty()) {
-            newDataModels.add(DataModel(dataModel.text, newMeanings))
+            newDataModels.add(
+                DataModel(
+                    dataModel.text,
+                    newMeanings
+                )
+            )
         }
     }
 }

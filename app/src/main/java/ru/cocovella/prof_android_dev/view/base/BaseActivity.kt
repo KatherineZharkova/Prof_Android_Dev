@@ -1,7 +1,6 @@
 package ru.cocovella.prof_android_dev.view.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,17 +12,19 @@ import ru.cocovella.prof_android_dev.utils.ui.AlertDialogFragment
 import ru.cocovella.prof_android_dev.viewmodel.BaseViewModel
 import ru.cocovella.prof_android_dev.viewmodel.Interactor
 import ru.cocovella.repo.model.data.AppState
-import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.userdata.DataModel
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328"
 
 abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity() {
 
     abstract val model: BaseViewModel<T>
+    protected abstract val layoutRes: Int
     protected var isNetworkAvailable: Boolean = true
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(layoutRes)
         subscribeToNetworkChange()
     }
 

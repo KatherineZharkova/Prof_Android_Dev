@@ -1,12 +1,12 @@
 package ru.cocovella.repo
 
 import ru.cocovella.repo.model.data.AppState
-import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.dto.SearchResultDto
 
-class RepositoryImplementationLocal(private val dataSource: DataSourceLocal<List<DataModel>>) :
-    RepositoryLocal<List<DataModel>> {
+class RepositoryImplementationLocal(private val dataSource: DataSourceLocal<List<SearchResultDto>>) :
+    RepositoryLocal<List<SearchResultDto>> {
 
-    override suspend fun getData(word: String): List<DataModel> {
+    override suspend fun getData(word: String): List<SearchResultDto> {
         return dataSource.getData(word)
     }
 

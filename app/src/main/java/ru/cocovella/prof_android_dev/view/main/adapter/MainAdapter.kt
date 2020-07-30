@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_main_recyclerview_item.view.*
 import ru.cocovella.prof_android_dev.R
 import ru.cocovella.prof_android_dev.utils.convertMeaningsToString
-import ru.cocovella.repo.model.data.DataModel
+import ru.cocovella.repo.model.data.userdata.DataModel
 
 class MainAdapter(private var onListItemClickListener: OnListItemClickListener) :
     RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
@@ -34,13 +35,12 @@ class MainAdapter(private var onListItemClickListener: OnListItemClickListener) 
 
 
 
-    inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+    inner class RecyclerItemViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.word_recycler_item .text = data.text
                 itemView.translation_recycler_item.text =
-                    convertMeaningsToString(data.meanings!!)
+                    convertMeaningsToString(data.meanings)
                 itemView.setOnClickListener { openInNewWindow(data) }
             }
         }
