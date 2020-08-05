@@ -18,14 +18,14 @@
 
         <TextView
             android:id="@+id/word_recycler_item"
-            style="@style/HeaderTextStyle"
+            style="?titleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Word or Phrase" />
 
         <TextView
             android:id="@+id/translation_recycler_item"
-            style="@style/BaseTextStyle"
+            style="?textAppearanceBody1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Translation" />

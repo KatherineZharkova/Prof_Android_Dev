@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ru.cocovella.prof_android_dev">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".application.TranslatorApp">
+        android:name=".application.TranslatorApp"
+        tools:ignore="AllowBackup">
     <activity android:name=".view.main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,6 +25,7 @@
         </activity>
         <activity
             android:name=".view.description.DescriptionActivity"
+            android:configChanges="uiMode"
             android:screenOrientation="portrait"/>
     </application>
 

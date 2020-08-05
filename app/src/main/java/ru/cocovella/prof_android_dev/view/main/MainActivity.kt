@@ -1,7 +1,10 @@
 package ru.cocovella.prof_android_dev.view.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,7 +35,7 @@ import ru.cocovella.repo.model.data.userdata.DataModel
 private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG = "74m54328"
 private const val HISTORY_ACTIVITY_PATH = "ru.cocovella.history_screen.history.HistoryActivity"
 private const val HISTORY_ACTIVITY_FEATURE_NAME = "historyScreen"
-private const val REQUEST_CODE = 42
+private const val REQUEST_CODE = 34
 
 class MainActivity : BaseActivity<AppState, MainInteractor>()  {
 
@@ -109,10 +112,12 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.history_menu, menu)
+        menuInflater.inflate(R.menu.main_screen_menu, menu)
+        menu?.findItem(R.id.menu_settings)?.isVisible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
         return super.onCreateOptionsMenu(menu)
     }
 
+    @SuppressLint("InlinedApi")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_history -> {
@@ -136,6 +141,10 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+                true
+            }
+            R.id.menu_settings -> {
+                startActivityForResult(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY), 42)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -162,12 +171,10 @@ class MainActivity : BaseActivity<AppState, MainInteractor>()  {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                appUpdateManager.unregisterListener(stateUpdatedListener)
-            } else {
-                Toast
-                    .makeText(applicationContext, "Update failed! Code: $resultCode", Toast.LENGTH_LONG)
-                    .show()
+            when (resultCode) {
+                RESULT_OK -> { appUpdateManager.unregisterListener(stateUpdatedListener) }
+                RESULT_CANCELED -> { Toast.makeText(applicationContext, "Action canceled", Toast.LENGTH_LONG).show() }
+                else -> { Toast.makeText(applicationContext, "Error: result code $resultCode", Toast.LENGTH_LONG).show() }
             }
         }
     }
