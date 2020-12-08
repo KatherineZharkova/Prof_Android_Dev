@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/error_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/card_background"
+    android:layout_margin="@dimen/margin_xx_small"
+    app:cardCornerRadius="@dimen/bottom_sheet_dialog_corner_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/word_recycler_item"
+            style="?titleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Word or Phrase" />
+
+        <TextView
+            android:id="@+id/translation_recycler_item"
+            style="?textAppearanceBody1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Translation" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
